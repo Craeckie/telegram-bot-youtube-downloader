@@ -1,16 +1,18 @@
-import logging
+import os, logging
 
 from telegram import InlineKeyboardMarkup
 from telegram.ext import Updater, CallbackQueryHandler, MessageHandler, Filters
 
 from vid_utils import Video, BadLink
 
-updater = Updater(token='YOUR TOKEN', use_context=True)
-
-dispatcher = updater.dispatcher
-
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+token = os.environ.get('BOT_TOKEN')
+logger.info(f"TOKEN: {token}")
+updater = Updater(token=token, use_context=True)
+
+dispatcher = updater.dispatcher
 
 
 def get_format(update, context):
